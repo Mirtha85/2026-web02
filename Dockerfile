@@ -13,15 +13,15 @@ WORKDIR /src
 
 # copy csproj and restore as distinct layers
 COPY ["2026-web02.csproj", "./"]
-RUN dotnet restore "2026-web02.csproj"
+RUN dotnet restore
 
 # copy the rest of the sources and build
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "2026-web02.csproj" -c Release -o /app/build
+RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "2026-web02" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
