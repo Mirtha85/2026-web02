@@ -30,10 +30,10 @@ jobs:
     # containerization steps
     - name: Build Docker image
       run: |
-        docker build -t 2026-tis-web02:latest .
+        docker build -t 2026-web02:latest .
     - name: Save Docker image to artifact
       run: |
-        docker save 2026-tis-web02:latest -o image.tar
+        docker save 2026-web02:latest -o image.tar
     - uses: actions/upload-artifact@v4
       with:
         name: docker-image
@@ -69,6 +69,6 @@ jobs:
         ssh -o StrictHostKeyChecking=no \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<'EOF'
           docker load < /tmp/image.tar
-          docker rm -f 2026-tis-web02 || true
-          docker run -d --name 2026-tis-web02 -p 8501:5010 2026-tis-web02:latest
+          docker rm -f 2026-web02 || true
+          docker run -d --name 2026-web02 -p 8501:5010 2026-web02:latest
         EOF

@@ -21,7 +21,7 @@ WORKDIR "/src/."
 RUN dotnet build "2026-web02.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "2026-tis-web02" -c Release -o /app/publish
+RUN dotnet publish "2026-web02" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
