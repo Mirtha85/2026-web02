@@ -12,18 +12,18 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # copy csproj and restore as distinct layers
-COPY ["BethanysPieShop.csproj", "./"]
-RUN dotnet restore "BethanysPieShop.csproj"
+COPY ["2026-web02.csproj", "./"]
+RUN dotnet restore "2026-web02.csproj"
 
 # copy the rest of the sources and build
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "BethanysPieShop.csproj" -c Release -o /app/build
+RUN dotnet build "2026-web02.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "BethanysPieShop.csproj" -c Release -o /app/publish
+RUN dotnet publish "2026-tis-web02" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "BethanysPieShop.dll"]
+ENTRYPOINT ["dotnet", "2026-web02.dll"]
