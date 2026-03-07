@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LuxeStep — Tienda de Zapatos</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Work+Sans' rel='stylesheet'>
+    <script src="/lib/jquery/jquery.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/site.css" rel="stylesheet" />
+    <base href="/" />
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- NAVBAR -->
+        <header>
+            <nav class="navbar navbar-expand-lg fixed-top luxe-navbar" aria-label="LuxeStep navigation">
+                <div class="container-xl">
+                    <!-- Logo / Brand -->
+                    <a class="navbar-brand luxe-brand" asp-controller="Shoe" asp-action="List">
+                        <span class="brand-icon">👟</span>
+                        <span class="brand-text">LUXE<span class="brand-accent">STEP</span></span>
+                    </a> 
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Shoe" asp-action="List">Zapatos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Category" asp-action="List">Categorías</a>
+                            </li>
+                        </ul>
+                        <div class="navbar-actions">
+                            <span class="nav-tag">Nueva Colección 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- HERO BANNER -->
+        <div class="luxe-hero">
+            <div class="hero-content">
+                <p class="hero-sub">Colección Exclusiva</p>
+                <h1 class="hero-title">Cada Paso,<br/><span class="hero-accent">Una Declaración.</span></h1>
+                <a asp-controller="Shoe" asp-action="List" class="btn hero-btn">Ver Colección</a>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <main class="container main-content">
+            @RenderBody()
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="luxe-footer">
+            <div class="container d-flex justify-content-between align-items-center flex-wrap">
+                <div class="footer-brand">
+                    <span class="brand-icon">👟</span>
+                    <span class="brand-text">LUXE<span class="brand-accent">STEP</span></span>
+                </div>
+                <p class="footer-copy">© 2025 LuxeStep — Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

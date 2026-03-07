@@ -1,0 +1,27 @@
+@using LuxeStep.Models
+@using LuxeStep.ViewModels
+@model CategoryListViewModel
+
+<h2 class="page-title">@Model.Title</h2>
+
+<table class="table table-dark table-hover mt-4">
+    <thead>
+        <tr>
+            <th>Categoría</th>
+            <th>Descripción</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Categories)
+        {
+            <tr>
+                <td><strong>@category.CategoryName</strong></td>
+                <td>@category.Description</td>
+                <td>
+                    <a asp-controller="Shoe" asp-action="List" class="btn btn-sm btn-outline-light">Ver zapatos</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
