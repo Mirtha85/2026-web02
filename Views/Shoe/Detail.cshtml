@@ -1,0 +1,68 @@
+@model LuxeStep.Models.Shoe
+
+<div class="detail-container">
+    <div class="row g-4 align-items-start">
+        <!-- IMAGEN -->
+        <div class="col-12 col-md-6">
+            <div class="detail-img-wrapper">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Name" class="detail-img" />
+                }
+                else
+                {
+                    <div class="shoe-img-placeholder">
+                        <span>👟</span>
+                    </div>
+                }
+                @if (Model.IsShoeOfTheWeek)
+                {
+                    <span class="badge-week">⭐ Destacado</span>
+                }
+            </div>
+        </div>
+
+        <!-- INFO -->
+        <div class="col-12 col-md-6">
+            <div class="detail-info">
+                <div class="shoe-brand">@Model.Brand</div>
+                <h1 class="detail-title">@Model.Name</h1>
+                <div class="detail-price">@Model.Price.ToString("c")</div>
+                <p class="detail-desc">@Model.LongDescription</p>
+
+                <div class="detail-meta">
+                    <div class="detail-meta-item">
+                        <span class="meta-label">Categoría</span>
+                        <span class="badge-category">@Model.Category.CategoryName</span>
+                    </div>
+                    <div class="detail-meta-item">
+                        <span class="meta-label">Género</span>
+                        <span class="badge-gender">@Model.Gender</span>
+                    </div>
+                    <div class="detail-meta-item">
+                        <span class="meta-label">Disponibilidad</span>
+                        @if (Model.InStock)
+                        {
+                            <span class="badge-stock">✅ En Stock</span>
+                        }
+                        else
+                        {
+                            <span class="badge-nostock">❌ Agotado</span>
+                        }
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.Material))
+                    {
+                        <div class="detail-meta-item">
+                            <span class="meta-label">Material</span>
+                            <span class="meta-value">@Model.Material</span>
+                        </div>
+                    }
+                </div>
+
+                <a asp-controller="Shoe" asp-action="List" class="btn btn-back mt-4">
+                    ← Volver al catálogo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

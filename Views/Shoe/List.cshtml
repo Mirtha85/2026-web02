@@ -28,7 +28,7 @@
                     <div class="shoe-brand">@shoe.Brand</div>
                     <div class="d-flex justify-content-between align-items-center mt-1">
                         <h2 class="shoe-name">
-                            <a class="shoe-link">@shoe.Name</a>
+                            <a asp-controller="Shoe" asp-action="Detail" asp-route-id="@shoe.ShoeId" class="shoe-link">@shoe.Name</a>
                         </h2>
                         <h5 class="shoe-price">@shoe.Price.ToString("c")</h5>
                     </div>

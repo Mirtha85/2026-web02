@@ -20,5 +20,13 @@ namespace LuxeStep.Controllers
             ShoeListViewModel shoeListViewModel = new ShoeListViewModel(_shoeRepository.AllShoes, "Todos los Zapatos");
             return View(shoeListViewModel);
         }
+
+        public IActionResult Detail(int id)
+        {
+            Shoe? shoe = _shoeRepository.GetShoeById(id);
+            if (shoe == null)
+                return NotFound();
+            return View(shoe);
+        }
     }
 }
