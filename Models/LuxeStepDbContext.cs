@@ -1,0 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+
+namespace LuxeStep.Models
+{
+    public class LuxeStepDbContext : DbContext
+    {
+        public LuxeStepDbContext(DbContextOptions<LuxeStepDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Shoe> Shoes { get; set; }
+        public DbSet<Category> Categories { get; set; }
+    }
+}

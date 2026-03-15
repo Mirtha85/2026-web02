@@ -1,11 +1,16 @@
 using LuxeStep.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<ICategoryRepository, MockCategoryRepository>();
-builder.Services.AddScoped<IShoeRepository, MockShoeRepository>();
+builder.Services.AddDbContext<LuxeStepDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration["ConnectionStrings:LuxeStepDbContextConnection"]));
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IShoeRepository, ShoeRepository>();
 
 var app = builder.Build();
 
@@ -16,4 +21,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.MapDefaultControllerRoute();
+DbInitializer.Seed(app);
 app.Run();
