@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<LuxeStepDbContext>(options =>
-    options.UseSqlServer(
+    options.UseSqlite(
         builder.Configuration["ConnectionStrings:LuxeStepDbContextConnection"]));
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
