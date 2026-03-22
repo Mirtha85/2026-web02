@@ -1,0 +1,101 @@
+@model LuxeStep.ViewModels.HomeViewModel
+
+<!-- CARRUSEL DESTACADOS -->
+<div class="carousel-section">
+    <h2 class="page-title">⭐ Zapatos Destacados</h2>
+
+    <div id="carruselDestacados" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @{ int i = 0; }
+            @foreach (var shoe in Model.ShoesOfTheWeek)
+            {
+                <button type="button" data-bs-target="#carruselDestacados"
+                        data-bs-slide-to="@i"
+                        class="@(i == 0 ? "active" : "")"
+                        aria-label="Slide @(i+1)"></button>
+                i++;
+            }
+        </div>
+
+        <div class="carousel-inner luxe-carousel-inner">
+            @{ int j = 0; }
+            @foreach (var shoe in Model.ShoesOfTheWeek)
+            {
+                <div class="carousel-item @(j == 0 ? "active" : "")">
+                    <div class="carousel-slide">
+                        <div class="carousel-img-col">
+                            @if (!string.IsNullOrEmpty(shoe.ImageUrl))
+                            {
+                                <img src="@shoe.ImageUrl" alt="@shoe.Name" class="carousel-shoe-img" />
+                            }
+                            else
+                            {
+                                <div class="shoe-img-placeholder">👟</div>
+                            }
+                        </div>
+                        <div class="carousel-info-col">
+                            <span class="shoe-brand">@shoe.Brand</span>
+                            <h2 class="carousel-shoe-name">@shoe.Name</h2>
+                            <p class="carousel-shoe-desc">@shoe.LongDescription</p>
+                            <div class="carousel-shoe-meta">
+                                <span class="badge-gender">@shoe.Gender</span>
+                                <span class="badge-category">@shoe.Category.CategoryName</span>
+                            </div>
+                            <div class="carousel-shoe-price">@shoe.Price.ToString("c")</div>
+                            <a asp-controller="Shoe" asp-action="Detail" asp-route-id="@shoe.ShoeId"
+                               class="btn hero-btn mt-3">Ver Detalle</a>
+                        </div>
+                    </div>
+                </div>
+                j++;
+            }
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carruselDestacados" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carruselDestacados" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</div>
+
+<!-- TODOS LOS ZAPATOS -->
+<h2 class="page-title">Todos los Zapatos</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var shoe in Model.AllShoes)
+    {
+        <div class="col">
+            <div class="card shoe-card">
+                <div class="shoe-img-wrapper">
+                    @if (!string.IsNullOrEmpty(shoe.ImageThumbnailUrl))
+                    {
+                        <img src="@shoe.ImageThumbnailUrl" class="card-img-top" alt="@shoe.Name">
+                    }
+                    else
+                    {
+                        <div class="shoe-img-placeholder"><span>👟</span></div>
+                    }
+                    @if (shoe.IsShoeOfTheWeek)
+                    {
+                        <span class="badge-week">⭐ Destacado</span>
+                    }
+                </div>
+                <div class="card-body shoe-body">
+                    <div class="shoe-brand">@shoe.Brand</div>
+                    <div class="d-flex justify-content-between align-items-center mt-1">
+                        <h2 class="shoe-name">
+                            <a asp-controller="Shoe" asp-action="Detail" asp-route-id="@shoe.ShoeId" class="shoe-link">@shoe.Name</a>
+                        </h2>
+                        <h5 class="shoe-price">@shoe.Price.ToString("c")</h5>
+                    </div>
+                    <p class="shoe-desc">@shoe.ShortDescription</p>
+                    <div class="shoe-meta">
+                        <span class="badge-gender">@shoe.Gender</span>
+                        <span class="badge-category">@shoe.Category.CategoryName</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
