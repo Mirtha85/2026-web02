@@ -1,12 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace LuxeStep.Models
 {
     public class DbInitializer
     {
         public static void Seed(IApplicationBuilder applicationBuilder)
         {
-            LuxeStepDbContext context = applicationBuilder.ApplicationServices
-                .CreateScope().ServiceProvider
-                .GetRequiredService<LuxeStepDbContext>();
+            using var scope = applicationBuilder.ApplicationServices.CreateScope();
+            LuxeStepDbContext context = scope.ServiceProvider.GetRequiredService<LuxeStepDbContext>();
+
+            // Aplica migraciones pendientes automáticamente al iniciar la app
+            context.Database.Migrate();
 
             if (!context.Categories.Any())
             {
