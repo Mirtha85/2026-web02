@@ -59,9 +59,17 @@
                     }
                 </div>
 
-                <a asp-controller="Shoe" asp-action="List" class="btn btn-back mt-4">
-                    ← Volver al catálogo
-                </a>
+                <div class="d-flex gap-3 mt-4 flex-wrap">
+                    <a asp-controller="ShoppingCart"
+                       asp-action="AddToShoppingCart"
+                       asp-route-shoeId="@Model.ShoeId"
+                       class="btn btn-primary px-4">
+                        🛒 Añadir al Carrito
+                    </a>
+                    <a asp-controller="Shoe" asp-action="List" class="btn btn-back">
+                        ← Volver al catálogo
+                    </a>
+                </div>
             </div>
         </div>
     </div>

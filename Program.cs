@@ -12,6 +12,12 @@ builder.Services.AddDbContext<LuxeStepDbContext>(options =>
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IShoeRepository, ShoeRepository>();
 
+// ── Carrito de Compras ──────────────────────────────────────────────────────
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+builder.Services.AddScoped<IShoppingCart, ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+// ────────────────────────────────────────────────────────────────────────────
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -20,6 +26,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
+app.UseSession();            // ← Debe ir ANTES de las rutas
 app.MapDefaultControllerRoute();
 DbInitializer.Seed(app);
 app.Run();

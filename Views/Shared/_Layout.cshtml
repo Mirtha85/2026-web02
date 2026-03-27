@@ -33,6 +33,10 @@
                         </ul>
                         <div class="navbar-actions d-flex align-items-center gap-3">
                             <span class="nav-tag">Nueva Colección 2026</span>
+                            <a asp-controller="ShoppingCart" asp-action="Index"
+                               class="btn btn-sm btn-outline-light position-relative" title="Mi Carrito">
+                                🛒 Carrito
+                            </a>
                             <div class="about-trigger" data-bs-toggle="offcanvas" data-bs-target="#aboutMe" title="Sobre el desarrollador">
                                 <img src="/Images/juan-foto.jpg" alt="Juan Luis" class="about-avatar" />
                             </div>
@@ -88,7 +92,7 @@
         </div>
 
         <!-- MAIN CONTENT -->
-        <main class="container main-content">
+        <main class="container-xl main-content">
             @RenderBody()
         </main>
 

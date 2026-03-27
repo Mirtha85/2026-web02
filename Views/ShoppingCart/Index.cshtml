@@ -1,0 +1,153 @@
+@using LuxeStep.ViewModels
+@model ShoppingCartViewModel
+
+@{
+    ViewData["Title"] = "Mi Carrito — LuxeStep";
+}
+
+<div class="cart-page">
+
+    @if (!Model.ShoppingCartItems.Any())
+    {
+        <!-- CARRITO VACÍO -->
+        <div class="cart-empty">
+            <div class="cart-empty-icon">🛒</div>
+            <h2 class="cart-empty-title">Tu carrito está vacío</h2>
+            <p class="cart-empty-sub">Explora nuestra colección y encuentra el zapato perfecto.</p>
+            <a asp-controller="Shoe" asp-action="List" class="btn hero-btn mt-2">
+                Ver Colección →
+            </a>
+        </div>
+    }
+    else
+    {
+        <!-- HEADER DE PÁGINA -->
+        <div class="cart-header">
+            <h1 class="cart-title">Mi Carrito</h1>
+            <span class="cart-count">@Model.ShoppingCartItems.Count() @(Model.ShoppingCartItems.Count() == 1 ? "artículo" : "artículos")</span>
+        </div>
+
+        <!-- LAYOUT PRINCIPAL: Items (izquierda) + Resumen (derecha) -->
+        <div class="cart-layout">
+
+            <!-- COLUMNA IZQUIERDA: Lista de productos -->
+            <div class="cart-items-col">
+
+                <!-- Encabezado de columnas -->
+                <div class="cart-col-header">
+                    <span class="col-h-product">Producto</span>
+                    <span class="col-h-price">Precio Unit.</span>
+                    <span class="col-h-qty">Cantidad</span>
+                    <span class="col-h-subtotal">Subtotal</span>
+                    <span class="col-h-actions">Acciones</span>
+                </div>
+
+                <!-- Ítems del carrito -->
+                @foreach (var item in Model.ShoppingCartItems)
+                {
+                    <div class="cart-item">
+                        <!-- Imagen grande -->
+                        <div class="cart-item-img">
+                            @if (!string.IsNullOrEmpty(item.Shoe.ImageUrl))
+                            {
+                                <img src="@item.Shoe.ImageUrl" alt="@item.Shoe.Name" />
+                            }
+                            else if (!string.IsNullOrEmpty(item.Shoe.ImageThumbnailUrl))
+                            {
+                                <img src="@item.Shoe.ImageThumbnailUrl" alt="@item.Shoe.Name" />
+                            }
+                            else
+                            {
+                                <div class="cart-img-placeholder">👟</div>
+                            }
+                        </div>
+
+                        <!-- Info del producto -->
+                        <div class="cart-item-info">
+                            <div class="cart-item-brand">@item.Shoe.Brand</div>
+                            <div class="cart-item-name">@item.Shoe.Name</div>
+                            @if (!string.IsNullOrEmpty(item.Shoe.Gender))
+                            {
+                                <span class="badge-gender">@item.Shoe.Gender</span>
+                            }
+                        </div>
+
+                        <!-- Precio unitario -->
+                        <div class="cart-item-price" data-label="Precio Unit.">
+                            @item.Shoe.Price.ToString("c")
+                        </div>
+
+                        <!-- Cantidad con controles -->
+                        <div class="cart-item-qty" data-label="Cantidad">
+                            <div class="qty-control">
+                                <a asp-controller="ShoppingCart"
+                                   asp-action="RemoveFromShoppingCart"
+                                   asp-route-shoeId="@item.Shoe.ShoeId"
+                                   class="qty-btn qty-minus" title="Quitar uno">−</a>
+                                <span class="qty-value">@item.Amount</span>
+                                <a asp-controller="ShoppingCart"
+                                   asp-action="AddToShoppingCart"
+                                   asp-route-shoeId="@item.Shoe.ShoeId"
+                                   class="qty-btn qty-plus" title="Añadir uno">+</a>
+                            </div>
+                        </div>
+
+                        <!-- Subtotal -->
+                        <div class="cart-item-subtotal" data-label="Subtotal">
+                            @((item.Shoe.Price * item.Amount).ToString("c"))
+                        </div>
+
+                        <!-- Eliminar -->
+                        <div class="cart-item-actions">
+                            <a asp-controller="ShoppingCart"
+                               asp-action="RemoveFromShoppingCart"
+                               asp-route-shoeId="@item.Shoe.ShoeId"
+                               class="cart-remove-btn" title="Eliminar del carrito">
+                                ✕
+                            </a>
+                        </div>
+                    </div>
+                }
+
+                <!-- Botón volver -->
+                <div class="cart-back-row">
+                    <a asp-controller="Shoe" asp-action="List" class="btn btn-back">
+                        ← Seguir comprando
+                    </a>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: Resumen del pedido -->
+            <div class="cart-summary-col">
+                <div class="cart-summary-box">
+                    <h2 class="summary-title">Resumen del Pedido</h2>
+
+                    <div class="summary-row">
+                        <span class="summary-label">Subtotal</span>
+                        <span class="summary-value">@Model.ShoppingCartTotal.ToString("c")</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Envío</span>
+                        <span class="summary-value summary-free">Gratis</span>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-row summary-total-row">
+                        <span class="summary-label-total">Total</span>
+                        <span class="summary-value-total">@Model.ShoppingCartTotal.ToString("c")</span>
+                    </div>
+
+                    <button class="btn-checkout" disabled>
+                        Confirmar Pedido
+                    </button>
+
+                    <p class="summary-secure">
+                        🔒 Compra segura garantizada
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
