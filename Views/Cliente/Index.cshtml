@@ -1,0 +1,67 @@
+@model IEnumerable<LuxeStep.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Listado de Clientes";
+}
+
+<div class="cart-page">
+    <div class="cart-header">
+        <h1 class="cart-title">Clientes Registrados</h1>
+        <span class="cart-count">@Model.Count() registrados</span>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="cart-empty">
+            <div class="cart-empty-icon">👥</div>
+            <h2 class="cart-empty-title">Aún no hay clientes registrados</h2>
+            <p class="cart-empty-sub">Comienza registrando un nuevo cliente para verlo aquí.</p>
+            <a asp-action="Create" class="btn hero-btn mt-2">
+                Nuevo Cliente →
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive mt-4">
+            <table class="table table-hover align-middle cart-table">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col" class="ps-4">Nombre</th>
+                        <th scope="col">Correo Electrónico</th>
+                        <th scope="col" class="text-center">Teléfono</th>
+                        <th scope="col" class="text-center">Fecha Nac.</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="cart-item" style="display: table-row;">
+                            <td class="ps-4">
+                                <div class="cart-shoe-name text-white fw-bold">@item.Nombre</div>
+                            </td>
+                            <td>
+                                <div class="text-muted small">@item.Correo</div>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-secondary">@item.Telefono</span>
+                            </td>
+                            <td class="text-center text-muted">
+                                @item.FechaNacimiento.ToString("dd/MM/yyyy")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-controller="Shoe" asp-action="List" class="btn btn-back">
+                ← Volver al catálogo
+            </a>
+            <a asp-action="Create" class="btn hero-btn px-4">
+                ➕ Registrar Nuevo
+            </a>
+        </div>
+    }
+</div>

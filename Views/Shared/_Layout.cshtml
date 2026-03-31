@@ -30,6 +30,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Category" asp-action="List">Categorías</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Cliente" asp-action="Index">Clientes</a>
+                            </li>
                         </ul>
                         <div class="navbar-actions d-flex align-items-center gap-3">
                             <span class="nav-tag">Nueva Colección 2026</span>
@@ -141,5 +144,6 @@
             </div>
         </footer>
     </div>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
