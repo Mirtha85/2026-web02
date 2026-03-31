@@ -13,5 +13,6 @@ namespace LuxeStep.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<MensajeContacto> MensajesContacto { get; set; }
     }
 }

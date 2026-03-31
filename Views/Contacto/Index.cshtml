@@ -1,0 +1,68 @@
+@model LuxeStep.Models.MensajeContacto
+
+@{
+    ViewData["Title"] = "Contáctanos";
+}
+
+<div class="cart-page">
+    <div class="cart-header justify-content-center border-bottom-0 mb-4">
+        <h1 class="cart-title d-flex align-items-center gap-2">
+            ✉️ Contáctanos
+        </h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="cart-summary-box border border-secondary shadow-lg">
+                
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success d-flex align-items-center mb-4" role="alert" style="background-color: var(--green-mid); border-color: var(--green-accent); color: var(--gold);">
+                        <div>
+                            <strong>¡Éxito!</strong> @TempData["SuccessMessage"]
+                        </div>
+                    </div>
+                }
+
+                <form asp-action="Index" method="post" class="needs-validation">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-4">
+                        <label asp-for="NombreCompleto" class="summary-label mb-2 fw-bold text-uppercase" style="color: var(--gold);"></label>
+                        <input asp-for="NombreCompleto" class="form-control bg-dark text-white border-secondary p-3" placeholder="Ingresa tu nombre completo" />
+                        <span asp-validation-for="NombreCompleto" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Correo" class="summary-label mb-2 fw-bold text-uppercase" style="color: var(--gold);"></label>
+                        <input asp-for="Correo" type="email" class="form-control bg-dark text-white border-secondary p-3" placeholder="Ingresa tu correo" />
+                        <span asp-validation-for="Correo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Mensaje" class="summary-label mb-2 fw-bold text-uppercase" style="color: var(--gold);"></label>
+                        <textarea asp-for="Mensaje" class="form-control bg-dark text-white border-secondary p-3" rows="4" placeholder="Escribe tu mensaje..."></textarea>
+                        <span asp-validation-for="Mensaje" class="text-danger small"></span>
+                    </div>
+
+                    <div class="summary-divider mt-5 mb-4"></div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-checkout py-3 fw-bold fs-5 text-uppercase border-0" style="background: linear-gradient(135deg, #e63946, #c1121f); box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);">
+                            Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="text-center mt-4">
+                <span class="text-muted small fw-bold text-uppercase">CREADO POR @(Environment.UserName.ToUpper())</span>
+                <span class="ms-4 text-muted small fw-bold text-uppercase" style="color: var(--gold) !important;">© 2026 - LUXESTEP - ¡HACIA EL ÉXITO!</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
